@@ -13,5 +13,8 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
+# expose port for application
+EXPOSE 8001
+
 # start fastapi application
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["python", "app/main.py"]

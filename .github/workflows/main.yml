@@ -1,4 +1,4 @@
-name: Run ML API Tests
+name: ML API CI/CD
 
 on:
   push:
@@ -6,8 +6,12 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  IMAGE_NAME: remz01/digits_classifier
+
 jobs:
   test:
+    name: 🧪 Test Model
     runs-on: ubuntu-latest
 
     steps:
@@ -24,9 +28,36 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: 🧠 Train model (if needed)
-      run: python model/model_train.py
+    - name: 🧠 Train model
+      run: python digit_model/digit_model_train.py
 
-    - name: ✅ Run API test
-      run: |
-        python -m unittest discover -s tests
+    - name: ✅ Run tests
+      run: python -m unittest discover -s tests
+
+
+  build:
+    name: 🐳 Build & Push Docker Image
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v3
+
+    - name: 🐳 Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: 🔐 Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USER_NAME }}
+        password: ${{ secrets.DOCKER_PASS_TOKEN }}
+
+    - name: 🏗️ Build & Push Image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        tags: ${{ env.IMAGE_NAME }}:latest
+
+

@@ -31,6 +31,6 @@ joblib.dump(clf, 'digit_model/digits_model.pkl')
 
 # Evaluate
 preds = clf.predict(X_test)
-print("Accuracy:", accuracy_score(y_test, preds))
+
 
 print("✅ Model trained and saved to 'digit_model/digits_model.pkl'")

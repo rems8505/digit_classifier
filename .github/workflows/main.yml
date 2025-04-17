@@ -1,4 +1,4 @@
-name: ML API CI/CD
+name: ML API CI
 
 on:
   push:
@@ -10,6 +10,7 @@ env:
   IMAGE_NAME: remz01/digits_classifier
 
 jobs:
+
   test:
     name: 🧪 Test Model
     runs-on: ubuntu-latest

@@ -5,7 +5,8 @@ digits = load_digits()
 
 samples = {}
 for digit in range(10):
-    # Find first sample of this digit
+    # Find first sample of this 
+    print(f"sample digit")
     index = next(i for i, y in enumerate(digits.target) if y == digit)
     samples[digit] = {
         "features": digits.data[index].tolist(),

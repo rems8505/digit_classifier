@@ -19,7 +19,7 @@ digit-recognition-api/
 ├── Dockerfile               # Docker build file
 ├── .github/workflows/
 │   └── ci.yml               # GitHub Actions for CI to train, test, build and push to docker hub
-│   └── cd.yml               # GitHub Actions for CD to to depkoy the docer cobtiabers to AWS EC2
+│   └── cd.yml               # GitHub Actions for CD to to deploy the docker contianers to AWS EC2
 ```
 
 ---
